@@ -1,7 +1,7 @@
 package ua.edu.ucu.smartarr;
 
 // Base array for decorators
-public class BaseArray implements SmartArray{
+public class BaseArray implements SmartArray {
 
     private Object[] arr;
 
@@ -12,7 +12,18 @@ public class BaseArray implements SmartArray{
 
     @Override
     public Object[] toArray() {
-        return arr;
+        Object[] array = new Object[size()];
+        int index = 0;
+
+        Object[] current = arr;
+        for (Object elem: current) {
+            if (elem == null) {
+                break;
+            }
+            array[index] = elem;
+            index++;
+        }
+        return array;
     }
 
     @Override
@@ -23,9 +34,9 @@ public class BaseArray implements SmartArray{
     @Override
     public int size() {
         int len = 0;
-        Object[] arr = toArray();
+        Object[] array = arr;
 
-        for (Object e: arr) {
+        for (Object e: array) {
             if (e != null) {
                 len++;
             }

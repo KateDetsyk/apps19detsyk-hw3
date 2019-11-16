@@ -4,7 +4,12 @@ import java.util.Arrays;
 import ua.edu.ucu.functions.MyComparator;
 import ua.edu.ucu.functions.MyFunction;
 import ua.edu.ucu.functions.MyPredicate;
-import ua.edu.ucu.smartarr.*;
+import ua.edu.ucu.smartarr.BaseArray;
+import ua.edu.ucu.smartarr.DistinctDecorator;
+import ua.edu.ucu.smartarr.FilterDecorator;
+import ua.edu.ucu.smartarr.MapDecorator;
+import ua.edu.ucu.smartarr.SmartArray;
+import ua.edu.ucu.smartarr.SortDecorator;
 
 public class SmartArrayApp {
 
@@ -50,11 +55,12 @@ public class SmartArrayApp {
     }
 
     public static String[]
-            findDistinctStudentNamesFrom2ndYearWithGPAgt4AndOrderedBySurname(Student[] students) {
+            findDistinctStudentNamesFrom2ndYearWithGPAgt4AndOrderedBySurname
+            (Student[] students) {
 
         MyComparator cmp = (o1, o2) -> {
-            char[] name1 = ((Student)o1).getSurname().toCharArray();
-            char[] name2 = ((Student)o2).getSurname().toCharArray();
+            char[] name1 = ((Student) o1).getSurname().toCharArray();
+            char[] name2 = ((Student) o2).getSurname().toCharArray();
 
             if (name1.length == name2.length) {
                 int len = name1.length;
@@ -69,7 +75,11 @@ public class SmartArrayApp {
             return name1.length - name2.length;
         };
 
-        MyPredicate pr = t -> ((Student)t).getYear() == 2 && ((Student)t).getGPA() >= 4;
+        int gpa = 4;
+        int year = 2;
+
+        MyPredicate pr = t -> ((Student) t).getYear() == year &&
+                ((Student) t).getGPA() >= gpa;
 
 
         // equals doesn't comapare class Student well.
@@ -103,8 +113,8 @@ public class SmartArrayApp {
         String[] result = new String[st.size()];
 
         for (int i = 0; i < st.size(); i++) {
-            result[i] = ((Student)st.toArray()[i]).getSurname() + " " +
-                    ((Student)st.toArray()[i]).getName();
+            result[i] = ((Student) st.toArray()[i]).getSurname() + " " +
+                    ((Student) st.toArray()[i]).getName();
         }
 
         return result;

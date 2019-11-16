@@ -3,7 +3,7 @@ package ua.edu.ucu.smartarr;
 import ua.edu.ucu.functions.MyComparator;
 
 // Sorts elements using MyComparator to compare them
-public class SortDecorator extends SmartArrayDecorator{
+public class SortDecorator extends SmartArrayDecorator {
 
     public SortDecorator(SmartArray sa, MyComparator cmp) {
         super(sa);
@@ -21,18 +21,6 @@ public class SortDecorator extends SmartArrayDecorator{
             }
             arr[position + 1] = value;
         }
-
-//        for (int i = 1; i < n; ++i) {
-//            Object key = arr[i];
-//            int j = i - 1;
-//
-//            while (j >= 0 && cmp.compare(arr[j], key) > 0) {
-//                arr[j + 1] = arr[j];
-//                j = j - 1;
-//            }
-//            arr[j + 1] = key;
-//        }
-
         this.smartArray = new BaseArray(arr);
     }
 
@@ -43,7 +31,8 @@ public class SortDecorator extends SmartArrayDecorator{
 
     @Override
     public String operationDescription() {
-        return "Sorts elements using MyComparator to compare them";
+        return "Sorts elements " +
+                "using MyComparator to compare them";
     }
 
     @Override
