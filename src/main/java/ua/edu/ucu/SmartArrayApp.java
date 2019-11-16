@@ -13,6 +13,9 @@ import ua.edu.ucu.smartarr.SortDecorator;
 
 public class SmartArrayApp {
 
+    final static int GPAA = 4;
+    final static int YEAR = 2;
+
     public static Integer[]
             filterPositiveIntegersSortAndMultiplyBy2(Integer[] integers) {
                 
@@ -44,12 +47,6 @@ public class SmartArrayApp {
         sa = new SortDecorator(sa, cmp); // Result: [1, 2, 3]
         sa = new MapDecorator(sa, func); // Result: [2, 4, 6]
 
-        // Alternative
-//        sa = new MapDecorator(
-//                    new SortDecorator(
-//                        new FilterDecorator(sa, pr),
-//                    cmp),
-//                func);
         Object[] result = sa.toArray();
         return Arrays.copyOf(result, result.length, Integer[].class);
     }
@@ -58,58 +55,31 @@ public class SmartArrayApp {
             findDistinctStudentNamesFrom2ndYearWithGPAgt4AndOrderedBySurname(
                     Student[] students) {
 
-        MyComparator cmp = (o1, o2) -> {
-            char[] name1 = ((Student) o1).getSurname().toCharArray();
-            char[] name2 = ((Student) o2).getSurname().toCharArray();
+        MyComparator cmp = (one, two) -> {
+            char[] nameOne = ((Student) one).getSurname().toCharArray();
+            char[] nameTwo = ((Student) two).getSurname().toCharArray();
 
-            if (name1.length == name2.length) {
-                int len = name1.length;
+            if (nameOne.length == nameTwo.length) {
+                int len = nameOne.length;
 
                 for (int i = 0; i < len; i++) {
-                    if (name1[i] != name2[i]) {
-                        return (int) name1[i] - (int) name2[i];
+                    if (nameOne[i] != nameTwo[i]) {
+                        return (int) nameOne[i] - (int) nameTwo[i];
                     }
                 }
                 return 0;
             }
-            return name1.length - name2.length;
+            return nameOne.length - nameTwo.length;
         };
 
-        final int gpa = 4;
-        final int year = 2;
+        MyPredicate pr = t -> ((Student) t).getYear() == YEAR
+                && ((Student) t).getGPA() >= GPAA;
 
-        MyPredicate pr = t -> ((Student) t).getYear() == year
-                && ((Student) t).getGPA() >= gpa;
-
-
-        // equals doesn't comapare class Student well.
-        int len = students.length;
-        Student[] current = students;
-
-        for (int i = 0; i < len; i++) {
-            for (int j = i + 1; j < len; j++) {
-                if (current[i].getName().equals(current[j].getName())) {
-                    int temp = j;
-                    for (int c = j+1; c < len; c++) {
-                        current[temp] = current[c];
-                        temp++;
-                    }
-                    len -= 1;
-                    j -= 1;
-                }
-            }
-        }
-        Student[] studentsNew = new Student[len];
-        System.arraycopy(current, 0, studentsNew, 0, len);
-
-
-        SmartArray st = new BaseArray(studentsNew);
-
+        SmartArray st = new BaseArray(students);
         st = new DistinctDecorator(st);
         st = new FilterDecorator(st, pr);
         st = new SortDecorator(st, cmp);
 
-        // Hint: to convert Object[] to String[] - use the following code
         String[] result = new String[st.size()];
 
         for (int i = 0; i < st.size(); i++) {
