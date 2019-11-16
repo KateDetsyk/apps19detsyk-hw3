@@ -71,12 +71,33 @@ public class SmartArrayApp {
 
         MyPredicate pr = t -> ((Student)t).getYear() == 2 && ((Student)t).getGPA() >= 4;
 
-        SmartArray st = new BaseArray(students);
+
+        // equals doesn't comapare class Student well.
+        int len = students.length;
+        Student[] current = students;
+
+        for (int i = 0; i < len; i++) {
+            for (int j = i + 1; j < len; j++) {
+                if (current[i].getName().equals(current[j].getName())) {
+                    int temp = j;
+                    for (int c = j+1; c < len; c++) {
+                        current[temp] = current[c];
+                        temp++;
+                    }
+                    len -= 1;
+                    j -= 1;
+                }
+            }
+        }
+        Student[] studentsNew = new Student[len];
+        System.arraycopy(current, 0, studentsNew, 0, len);
+
+
+        SmartArray st = new BaseArray(studentsNew);
 
         st = new DistinctDecorator(st);
         st = new FilterDecorator(st, pr);
         st = new SortDecorator(st, cmp);
-
 
         // Hint: to convert Object[] to String[] - use the following code
         String[] result = new String[st.size()];
