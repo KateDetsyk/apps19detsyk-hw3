@@ -31,8 +31,8 @@ public class DistinctDecoratorTest {
     public void testOperationDescription() {
         String d = arr.operationDescription();
 
-        String expected = "Remove duplicates from SmartArray. " +
-                "Use method equals() to compare objects";
+        String expected = "Remove duplicates from SmartArray. "
+                + "Use method equals() to compare objects";
 
         assertEquals(expected, d);
     }

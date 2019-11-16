@@ -55,8 +55,8 @@ public class SmartArrayApp {
     }
 
     public static String[]
-            findDistinctStudentNamesFrom2ndYearWithGPAgt4AndOrderedBySurname
-            (Student[] students) {
+            findDistinctStudentNamesFrom2ndYearWithGPAgt4AndOrderedBySurname(
+                    Student[] students) {
 
         MyComparator cmp = (o1, o2) -> {
             char[] name1 = ((Student) o1).getSurname().toCharArray();
@@ -75,11 +75,11 @@ public class SmartArrayApp {
             return name1.length - name2.length;
         };
 
-        int gpa = 4;
-        int year = 2;
+        final int gpa = 4;
+        final int year = 2;
 
-        MyPredicate pr = t -> ((Student) t).getYear() == year &&
-                ((Student) t).getGPA() >= gpa;
+        MyPredicate pr = t -> ((Student) t).getYear() == year
+                && ((Student) t).getGPA() >= gpa;
 
 
         // equals doesn't comapare class Student well.
@@ -113,8 +113,8 @@ public class SmartArrayApp {
         String[] result = new String[st.size()];
 
         for (int i = 0; i < st.size(); i++) {
-            result[i] = ((Student) st.toArray()[i]).getSurname() + " " +
-                    ((Student) st.toArray()[i]).getName();
+            result[i] = ((Student) st.toArray()[i]).getSurname() + " "
+                    + ((Student) st.toArray()[i]).getName();
         }
 
         return result;
