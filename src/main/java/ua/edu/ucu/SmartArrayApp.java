@@ -13,9 +13,6 @@ import ua.edu.ucu.smartarr.SortDecorator;
 
 public class SmartArrayApp {
 
-    final static int GPAA = 4;
-    final static int YEAR = 2;
-
     public static Integer[]
             filterPositiveIntegersSortAndMultiplyBy2(Integer[] integers) {
                 
@@ -72,6 +69,8 @@ public class SmartArrayApp {
             return nameOne.length - nameTwo.length;
         };
 
+        final int GPAA = 4;
+        final int YEAR = 2;
         MyPredicate pr = t -> ((Student) t).getYear() == YEAR
                 && ((Student) t).getGPA() >= GPAA;
 
